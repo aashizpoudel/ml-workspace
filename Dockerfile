@@ -266,13 +266,13 @@ ENV \
     # TODO: CONDA_DIR is deprecated and should be removed in the future
     CONDA_DIR=/opt/conda \
     CONDA_ROOT=/opt/conda \
-    PYTHON_VERSION="3.8.10" \
-    CONDA_PYTHON_DIR=/opt/conda/lib/python3.8 \
+    PYTHON_VERSION="3.10.10" \
+    CONDA_PYTHON_DIR=/opt/conda/lib/python3.10 \
     MINICONDA_VERSION=4.9.2 \
     MINICONDA_MD5=122c8c9beb51e124ab32a0fa6426c656 \
     CONDA_VERSION=4.9.2
 
-RUN wget --no-verbose https://repo.anaconda.com/miniconda/Miniconda3-py38_${CONDA_VERSION}-Linux-x86_64.sh -O ~/miniconda.sh && \
+RUN wget --no-verbose https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
     echo "${MINICONDA_MD5} *miniconda.sh" | md5sum -c - && \
     /bin/bash ~/miniconda.sh -b -p $CONDA_ROOT && \
     export PATH=$CONDA_ROOT/bin:$PATH && \
@@ -573,16 +573,16 @@ RUN \
     # Install some basics - required to run container
     conda install -y --update-all \
             'python='$PYTHON_VERSION \
-            'ipython=7.24.*' \
-            'notebook=6.4.*' \
-            'jupyterlab=3.0.*' \
+            'ipython' \
+            'notebook' \
+            'jupyterlab*' \
             # TODO: nbconvert 6.x makes problems with template_path
-            'nbconvert=5.6.*' \
+            'nbconvert' \
             # TODO: temp fix: yarl version 1.5 is required for lots of libraries.
-            'yarl==1.5.*' \
+            'yarl' \
             # TODO install scipy, numpy, sklearn, and numexpr via conda for mkl optimizaed versions: https://docs.anaconda.com/mkl-optimizations/
-            'scipy==1.7.*' \
-            'numpy==1.19.*' \
+            'scipy' \
+            'numpy' \
             scikit-learn \
             numexpr && \
             # installed via apt-get and pip: protobuf \
